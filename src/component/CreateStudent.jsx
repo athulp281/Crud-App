@@ -21,6 +21,7 @@ export const CreateStudent = ({ open, setOpen, setStudent }) => {
         setOpen(false);
     };
     const handleClick = (e) => {
+        e.preventDefault();
         const Name = data.Name;
         const Email = data.Email;
         console.log(Name, Email);
