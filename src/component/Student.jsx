@@ -21,7 +21,6 @@ export const Student = () => {
     };
 
     const handleDelete = async (id) => {
-        console.log(id);
         try {
             await axios
                 .delete("http://localhost:8081/delete/" + id)
@@ -108,7 +107,7 @@ export const Student = () => {
                                                         size="small"
                                                         onClick={() =>
                                                             handleDelete(
-                                                                item.ID
+                                                                item.id
                                                             )
                                                         }
                                                     >

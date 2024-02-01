@@ -6,17 +6,22 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { Box, Stack, TextField } from "@mui/material";
 import axios from "axios";
+import Alert from "@mui/material/Alert";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const CreateStudent = ({ open, setOpen, setStudent }) => {
+    const [status, setStatus] = React.useState({
+        error: false,
+        msg: "",
+    });
     const [data, setData] = React.useState({
         Name: "",
         Email: "",
     });
-    console.log(data);
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -24,21 +29,38 @@ export const CreateStudent = ({ open, setOpen, setStudent }) => {
         e.preventDefault();
         const Name = data.Name;
         const Email = data.Email;
-        console.log(Name, Email);
+
         axios
             .post("http://localhost:8081/create", {
                 Name,
                 Email,
             })
             .then((res) => {
-                console.log(res);
                 setOpen(false);
+                setStatus({
+                    ...status,
+                    error: false,
+                    msg: "success",
+                });
+                setData({
+                    Name: "",
+                    Email: "",
+                });
+
                 axios
                     .get("http://localhost:8081/")
-                    .then((res) => setStudent(res.data))
-                    .catch((err) => console.log(err));
+                    .then((res) => {
+                        setStudent(res.data);
+                    })
+                    .catch((err) => console.log("err-=-=-=-=-=-", err));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                setStatus({
+                    ...status,
+                    error: true,
+                    msg: err.response.data,
+                });
+            });
     };
 
     return (
@@ -87,6 +109,12 @@ export const CreateStudent = ({ open, setOpen, setStudent }) => {
                                     />
                                 </Box>
                             </Stack>
+                            {status.error === true ? (
+                                <Box padding={2}>
+                                    <Alert severity="error">{status.msg}</Alert>
+                                </Box>
+                            ) : null}
+
                             <Box
                                 sx={{
                                     display: "flex",

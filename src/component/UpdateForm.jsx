@@ -17,9 +17,8 @@ export const UpdateForm = ({
     setStudent,
     student,
 }) => {
-    console.log(student);
     const [data, setData] = React.useState({
-        ID: "",
+        id: "",
         Name: "",
         Email: "",
     });
@@ -27,21 +26,20 @@ export const UpdateForm = ({
     React.useEffect(() => {
         setData({
             ...data,
-            ID: student.ID,
+            id: student.id,
             Name: student.Name,
             Email: student.Email,
         });
     }, [student]);
 
-    console.log(data);
     const handleClose = () => {
         setUpdateForm(false);
     };
     const handleClick = (e) => {
         const Name = data.Name;
         const Email = data.Email;
-        const id = data.ID;
-        console.log(Name, Email, id);
+        const id = data.id;
+
         e.preventDefault();
         axios
             .put("http://localhost:8081/update/" + id, {
@@ -49,7 +47,6 @@ export const UpdateForm = ({
                 Email,
             })
             .then((res) => {
-                console.log(res);
                 setUpdateForm(false);
                 axios
                     .get("http://localhost:8081/")
