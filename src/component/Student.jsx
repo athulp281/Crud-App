@@ -71,7 +71,6 @@ export const Student = () => {
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <Typography variant="h4" sx={{ color: "#fff" }}>
-                        {" "}
                         Students
                     </Typography>
                 </Box>

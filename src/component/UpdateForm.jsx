@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Box, Stack, TextField } from "@mui/material";
+import { Box, Divider, Stack, TextField } from "@mui/material";
 import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -68,48 +68,56 @@ export const UpdateForm = ({
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle>{"Update Student"}</DialogTitle>
+                <Divider />
                 <DialogContent>
-                    <Box sx={{ padding: 3 }}>
-                        <Stack direction={"column"} spacing={2}>
-                            <Box>
-                                <TextField
-                                    fullWidth
-                                    value={data.Name}
-                                    label="Student Name"
-                                    onChange={(e) =>
-                                        setData({
-                                            ...data,
-                                            Name: e.target.value,
-                                        })
-                                    }
-                                />
+                    <form>
+                        <Box sx={{ padding: 3 }}>
+                            <Stack direction={"column"} spacing={2}>
+                                <Box>
+                                    <TextField
+                                        fullWidth
+                                        value={data.Name}
+                                        label="Student Name"
+                                        onChange={(e) =>
+                                            setData({
+                                                ...data,
+                                                Name: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </Box>
+                                <Box>
+                                    <TextField
+                                        type="email"
+                                        fullWidth
+                                        value={data.Email}
+                                        onChange={(e) =>
+                                            setData({
+                                                ...data,
+                                                Email: e.target.value,
+                                            })
+                                        }
+                                        label="Email"
+                                    />
+                                </Box>
+                            </Stack>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    pt: 2,
+                                }}
+                            >
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    onClick={handleClick}
+                                >
+                                    Save
+                                </Button>
                             </Box>
-                            <Box>
-                                <TextField
-                                    fullWidth
-                                    value={data.Email}
-                                    onChange={(e) =>
-                                        setData({
-                                            ...data,
-                                            Email: e.target.value,
-                                        })
-                                    }
-                                    label="Email"
-                                />
-                            </Box>
-                        </Stack>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                pt: 2,
-                            }}
-                        >
-                            <Button variant="contained" onClick={handleClick}>
-                                Save
-                            </Button>
                         </Box>
-                    </Box>
+                    </form>
                 </DialogContent>
             </Dialog>
         </React.Fragment>
