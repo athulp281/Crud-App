@@ -12,7 +12,7 @@ export const Student = () => {
     const [updateForm, setUpdateForm] = React.useState(false);
     useEffect(() => {
         axios
-            .get("http://localhost:8081/")
+            .get("http://localhost:8081/students")
             .then((res) => setStudent(res.data))
             .catch((err) => console.log(err));
     }, []);
@@ -26,7 +26,7 @@ export const Student = () => {
                 .delete("http://localhost:8081/delete/" + id)
                 .then(() => {
                     axios
-                        .get("http://localhost:8081/")
+                        .get("http://localhost:8081/students")
                         .then((res) => setStudent(res.data))
                         .catch((err) => console.log(err));
                 });

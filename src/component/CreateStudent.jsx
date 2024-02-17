@@ -48,7 +48,7 @@ export const CreateStudent = ({ open, setOpen, setStudent }) => {
                 });
 
                 axios
-                    .get("http://localhost:8081/")
+                    .get("http://localhost:8081/students")
                     .then((res) => {
                         setStudent(res.data);
                     })

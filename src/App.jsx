@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Student } from "./component/Student";
 import { Box } from "@mui/material";
+import LoginAndReg from "./component/Auth/LoginAndReg";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -22,7 +23,14 @@ function App() {
                 >
                     <BrowserRouter>
                         <Routes>
-                            <Route path="/" element={<Student />}></Route>
+                            <Route
+                                path="/login"
+                                element={<LoginAndReg />}
+                            ></Route>
+                            <Route
+                                path="/students"
+                                element={<Student />}
+                            ></Route>
                         </Routes>
                     </BrowserRouter>
                 </Box>
