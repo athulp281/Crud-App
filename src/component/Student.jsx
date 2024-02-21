@@ -4,8 +4,10 @@ import axios from "axios";
 import { CreateStudent } from "./CreateStudent";
 import { UpdateForm } from "./UpdateForm";
 import { StudentCard } from "./StudentCard";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 export const Student = () => {
+    const navigate = useNavigate();
     const [student, setStudent] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [singleData, setSingleData] = React.useState(false);
@@ -34,9 +36,27 @@ export const Student = () => {
             console.log(error);
         }
     };
+    const userInfoString = localStorage.getItem("userInfo");
+    useEffect(() => {
+        if (userInfoString) {
+        } else {
+            navigate("/login");
+        }
+    }, [userInfoString]);
 
     return (
         <div>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                    color="error"
+                    onClick={() => {
+                        localStorage.removeItem("userInfo");
+                        navigate("/login", { replace: true });
+                    }}
+                >
+                    Log Out
+                </Button>
+            </Box>
             <CreateStudent
                 setOpen={setOpen}
                 open={open}

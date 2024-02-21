@@ -1,12 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/login.css";
+import axios from "axios";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 export default function LoginAndReg() {
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         username: "",
         password: "",
     });
     console.log(data);
+    const handleSubmit = () => {
+        console.log("submit");
+        axios
+            .post("http://localhost:8081/auth/signin", data)
+            .then((res) => {
+                console.log(res);
+                const userInfo = res.data;
+                localStorage.setItem("userInfo", JSON.stringify(userInfo));
+                setData({
+                    username: "",
+                    password: "",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    const userInfoString = localStorage.getItem("userInfo");
+    console.log("userInfoString", userInfoString);
+    useEffect(() => {
+        if (userInfoString) {
+            navigate("/students", { replace: true });
+        }
+    }, [userInfoString]);
+
     return (
         <div className="conatiner">
             <div className="ring">
@@ -36,7 +65,11 @@ export default function LoginAndReg() {
                         />
                     </div>
                     <div className="inputBx">
-                        <input type="submit" value="Sign in" />
+                        <input
+                            type="submit"
+                            onClick={handleSubmit}
+                            value="Sign in"
+                        />
                     </div>
                     <div className="links">
                         <a href="#">Forget Password</a>
