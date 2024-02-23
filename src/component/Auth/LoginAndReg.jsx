@@ -10,9 +10,8 @@ export default function LoginAndReg() {
         username: "",
         password: "",
     });
-    console.log(data);
+
     const handleSubmit = () => {
-        console.log("submit");
         axios
             .post("http://localhost:8081/auth/signin", data)
             .then((res) => {
